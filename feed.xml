@@ -6,8 +6,8 @@
     <atom:link href="https://fvanwesterop.github.io/blog//feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>Wed, 11 Jan 2017 16:14:13 +0100</pubDate>
-    <lastBuildDate>Wed, 11 Jan 2017 16:14:13 +0100</lastBuildDate>
+    <pubDate>Wed, 11 Jan 2017 23:43:18 +0100</pubDate>
+    <lastBuildDate>Wed, 11 Jan 2017 23:43:18 +0100</lastBuildDate>
 
     
     <item>
@@ -20,7 +20,7 @@
 &lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This article is a quick start guide on scaffolding a basic webapp with Node and Gulp but J2EE ready. Armed with nothing more than a text editor and a terminal we&amp;#8217;ll put down a basic but working site using Gulp to test-drive it and using Node to manage the dependencies you will need later, including Gulp itself.&lt;/p&gt;
+&lt;p&gt;This article is a quick start guide on scaffolding a basic webapp with Node and Gulp but JEE ready. Armed with nothing more than a text editor and a terminal we&amp;#8217;ll put down a basic but working site using Gulp to test-drive it and using Node to manage the dependencies you will need later, including Gulp itself.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
