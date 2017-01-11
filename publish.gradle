@@ -1,18 +1,6 @@
-buildscript {
-    repositories {
-        mavenLocal()
-        jcenter()
-        maven {
-            url 'https://plugins.gradle.org/m2/'
-        }
-    }
-
-    dependencies {
-      classpath 'org.ajoberstar:gradle-git:1.2.0'
-    }
+plugins {
+  id 'org.ajoberstar.github-pages' version '1.6.0'
 }
-
-apply plugin: 'org.ajoberstar.github-pages'
 
 githubPages {
   repoUri = 'git@github.com:fvanwesterop/blog.git'

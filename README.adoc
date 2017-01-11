@@ -1,0 +1,18 @@
+:source-highlighter: prettify
+
+= My blog site
+Frank van Westerop <https://github.com/fvanwesterop[@fvanwesterop]>
+ifdef::env-github,env-browser[:outfilesuffix: .adoc]
+
+These are the sources for my blog site. It is powered by awesome technology like http://www.groovy-lang.org/[Groovy], http://asciidoctor.org/docs/what-is-asciidoc/[AsciiDoc], http://jbake.org/[JBake] and http://getbootstrap.com/getting-started/[Bootstrap] and https://gradle.org/[Gradle].
+
+I write the actual blog posts and other content in AsciiDoc format. These documents are then transformed by JBake using page templates into HTML format and https://fvanwesterop.github.io/blog/[published on GitHub] using a Gradle build.
+
+JBake provides the structure for my site and performs the transformation from AsciiDoc to HTML. This is done using templates which I also provide in the source code. JBake supports a number of template engines for this. Plugging in a specific template engine is done by providing the library containing the engine of choice to JBake. I chose for http://docs.groovy-lang.org/latest/html/documentation/template-engines.html[groovy-templates]. JBake also takes care of the styling of the resulting HTML documents with it's bundled copy of Bootstrap.
+
+The Groovy templates, authored AsciiDoc content and the sources and directory structure needed by JBake live in the `master` branch of the GitHub repo. The generated site gets published by a git push to the `gh-pages` branch. To accomplish this I use a Gradle build: The groovy-templates engine is provided to JBake by adding its dependency coordinates to the Gradle build file. For running JBake itself and publish it's output to the GitHub the following Gradle plugins are configured in the build:
+
+* The https://github.com/jbake-org/jbake-gradle-plugin/[jbake-gradle-plugin] for running JBake.
+* The https://github.com/ajoberstar/gradle-git/[gradle-git] plugin for taking the output JBake and push it to the remote gh-pages branch.
+
+Maybe this info inspires you to start or migrate your own blog in this way. Enjoy!
