@@ -1,0 +1,137 @@
+= Create a mixed NodeJS - J2EE Webapp
+Frank van Westerop
+2016-07-02
+:Version: 0.1
+:jbake-type: post
+:jbake-status: published
+:jbake-tags: blog, asciidoc
+:idprefix:
+
+== Introduction
+This article is a quick start guide on scaffolding a basic webapp with Node and Gulp but J2EE ready. Armed with nothing more than a text editor and a terminal we'll put down a basic but working site using Gulp to test-drive it and using Node to manage the dependencies you will need later, including Gulp itself.
+
+== Quick Start Guide
+=== Prerequisites
+Firstly I'm assuming you already have a recent version of NodeJS (including the NPM package manager) installed. If not please install Node first using instructions appropriate for your platform. See the https://nodejs.org/en/download/[NodeJS website] for the available options. Personally I think you best use your platform's https://nodejs.org/en/download/package-manager/[package manager] to install and maintain your NodeJS installation. This includes Apple OSX users that should be using Homebrew anyway to manage Linux-ish packages. Windows users will have to stick to the native installer app.
+
+Secondly it is advised to remove a potential pre-existing system-wide (global) `gulp` Node module to make sure it does not interfere with the `gulp-cli` module you will be installing globally. Besides, you will be using a project-local version of Gulp as a development scoped dependency so you do not need a globally installed version. To remove a global installed `gulp` version:
+
+ npm --global rm gulp
+
+Now do install `gulp-cli` globally:
+
+ npm --global install gulp-cli
+
+=== Create a basic project structure
+We adopt the common structure as used in the java/groovy community, following the default structure of build tools like maven and gradle:
+
+....
+project_name=<your_project_name_here>
+mkdir ${project_name}
+cd ${project_name}
+
+mkdir -p src/main/web/style
+mkdir -p src/main/web/html
+mkdir -p src/main/web/script
+mkdir -p src/main/web/image/icon
+....
+
+=== Create Javascript descriptor files
+
+Create a local Node environment in your project:
+
+ npm init
+
+Just answer the questions as best as you can ;-)
+
+Now add the `gulp` module as a development dependency to Node's `package.json`:
+
+ npm install --save-dev gulp
+
+To serve-up your site and auto-reload it in your browser while working on it we will add the `browser-sync` module as development dependency:
+
+ npm install --save-dev browser-sync
+
+Create  a descriptor file for Gulp:
+
+ touch gulpfile.js
+
+Now open it in your text editor and copy-in the following contents:
+....
+var gulp = require('gulp');
+var browserSync = require('browser-sync');
+var reload = browserSync.reload;
+
+var appRoot = 'src/main/web'
+
+// default task, doing nop
+gulp.task('default', function() {
+});
+
+
+// watch files for changes and auto-reload
+gulp.task('serve', function() {
+  browserSync({
+    server: {
+      baseDir: appRoot
+    }
+  });
+
+  gulp.watch(['*.html', 'html/**/*.html', 'style/**/*.css', 'script/**/*.js'], {cwd: appRoot}, reload);
+});
+....
+
+We added two taskes here: the `default` task and the `serve` task. For the `default` task we do not have anything to do yet. The `serve` task however will trigger the `browser-sync` module. In the task definition we specify how our site is structured so that it will know wich files to serve and which to watch to trigger the auto-reload functionality.
+
+=== Scaffold Your Web Application
+Firstly scaffold your site with an empty `index.html` wiring-in an empty stylesheet and javascript file:
+....
+touch src/main/web/index.html
+touch src/main/web/style/styles.css
+touch src/main/web/script/app.js
+....
+Open `src/main/web/index.html` in a text editor an copy-in the following contents:
+....
+<html>
+<head>
+  <title>${project_name}</title>
+    <link rel="stylesheet" type="text/css" href="style/styles.css"/>
+    <script type="text/javascript" src="script/app.js"></script>
+</head>
+<body>
+  <h1>Hello World</h1>
+  <p>Lorum ipsum...</p>
+</body>
+</html>
+....
+
+=== Build your Site while Auto-reloading it
+Now for the fun-part: You will use Gulp to serve your site on your local machine and auto-reload it in your browser while editing your html, style and script files:
+
+ gulp serve
+
+
+=== Optional: Including a Web Application Deployment Descriptor
+When you plan on deploying on a J2EE application server such as Jetti or Tomcat you'll need a deployment descriptor matching the Servlet specification used in your Java code and supported by your target server. In this example we assume you'll settle for the current Servlet 3.1 specification from Java EE7 which is supported by Tomcat 8.5 amongst others.
+
+For other Servlet specs you need to use a different XSD schema specification for your `web.xml`. See http://www.mkyong.com/web-development/the-web-xml-deployment-descriptor-examples/[these examples] for the schema's matching the older Servlet 3.0, 2.5, 2.4 and 2.3 specifictions. If Tomcat is your appserver of choice, use this http://tomcat.apache.org/whichversion.html[version table] to figure out which servlet spec you should specify in your web descriptor.
+
+First create the web descriptor file:
+....
+mkdir -p src/main/webapp/WEB-INF
+touch src/main/webapp/WEB-INF/web.xml
+....
+
+Now open it `src/main/webapp/WEB-INF/web.xml` in a text editor and copy-in the following contents. Either replace the variable `${project_name}` with your actual project name, or leave it as-is when you are planning on using a resource filter from a maven build to substitute it at build time later:
+
+....
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+     http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+
+         <display-name>${project_name}</display-name>
+
+</web-app>
+....

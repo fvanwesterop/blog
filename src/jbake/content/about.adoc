@@ -1,0 +1,13 @@
+= About
+Frank van Westerop
+2017-01-11
+:jbake-type: page
+:jbake-status: published
+
+On this site I’ll be writing on my endavours of learning technologies and eco-systems such as:
+
+- NodeJS ecosystem with Angular, Gulp and Bower
+- Groovy ecosystem with Gradle, SDKman, Lazybones, Grails and Spock
+- Docker ecosystem with tools like Compose and Swarm
+
+This will result in a number of short how-to kinda articles. Enjoy reading!
