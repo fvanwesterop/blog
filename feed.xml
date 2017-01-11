@@ -1,0 +1,222 @@
+<?xml version="1.0"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>JBake</title>
+    <link>https://fvanwesterop.github.io/blog/</link>
+    <atom:link href="https://fvanwesterop.github.io/blog//feed.xml" rel="self" type="application/rss+xml" />
+    <description>JBake Bootstrap Template</description>
+    <language>en-gb</language>
+    <pubDate>Wed, 11 Jan 2017 16:14:13 +0100</pubDate>
+    <lastBuildDate>Wed, 11 Jan 2017 16:14:13 +0100</lastBuildDate>
+
+    
+    <item>
+      <title>Create a mixed NodeJS - J2EE Webapp</title>
+      <link>https://fvanwesterop.github.io/blog//blog/2016/create-a-mixed-nodejs-j2ee-webapp.html</link>
+      <pubDate>Sat, 2 Jul 2016 00:00:00 +0200</pubDate>
+      <guid isPermaLink="false">blog/2016/create-a-mixed-nodejs-j2ee-webapp.html</guid>
+      <description>
+      &lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This article is a quick start guide on scaffolding a basic webapp with Node and Gulp but J2EE ready. Armed with nothing more than a text editor and a terminal we&amp;#8217;ll put down a basic but working site using Gulp to test-drive it and using Node to manage the dependencies you will need later, including Gulp itself.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;quick_start_guide&quot;&gt;Quick Start Guide&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;prerequisites&quot;&gt;Prerequisites&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Firstly I&amp;#8217;m assuming you already have a recent version of NodeJS (including the NPM package manager) installed. If not please install Node first using instructions appropriate for your platform. See the &lt;a href=&quot;https://nodejs.org/en/download/&quot;&gt;NodeJS website&lt;/a&gt; for the available options. Personally I think you best use your platform&amp;#8217;s &lt;a href=&quot;https://nodejs.org/en/download/package-manager/&quot;&gt;package manager&lt;/a&gt; to install and maintain your NodeJS installation. This includes Apple OSX users that should be using Homebrew anyway to manage Linux-ish packages. Windows users will have to stick to the native installer app.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Secondly it is advised to remove a potential pre-existing system-wide (global) &lt;code&gt;gulp&lt;/code&gt; Node module to make sure it does not interfere with the &lt;code&gt;gulp-cli&lt;/code&gt; module you will be installing globally. Besides, you will be using a project-local version of Gulp as a development scoped dependency so you do not need a globally installed version. To remove a global installed &lt;code&gt;gulp&lt;/code&gt; version:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;literalblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;npm --global rm gulp&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Now do install &lt;code&gt;gulp-cli&lt;/code&gt; globally:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;literalblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;npm --global install gulp-cli&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;create_a_basic_project_structure&quot;&gt;Create a basic project structure&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;We adopt the common structure as used in the java/groovy community, following the default structure of build tools like maven and gradle:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;literalblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;project_name=&amp;lt;your_project_name_here&amp;gt;
+mkdir ${project_name}
+cd ${project_name}
+
+mkdir -p src/main/web/style
+mkdir -p src/main/web/html
+mkdir -p src/main/web/script
+mkdir -p src/main/web/image/icon&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;create_javascript_descriptor_files&quot;&gt;Create Javascript descriptor files&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Create a local Node environment in your project:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;literalblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;npm init&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Just answer the questions as best as you can ;-)&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Now add the &lt;code&gt;gulp&lt;/code&gt; module as a development dependency to Node&amp;#8217;s &lt;code&gt;package.json&lt;/code&gt;:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;literalblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;npm install --save-dev gulp&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;To serve-up your site and auto-reload it in your browser while working on it we will add the &lt;code&gt;browser-sync&lt;/code&gt; module as development dependency:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;literalblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;npm install --save-dev browser-sync&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Create  a descriptor file for Gulp:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;literalblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;touch gulpfile.js&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Now open it in your text editor and copy-in the following contents:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;literalblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;var gulp = require(&apos;gulp&apos;);
+var browserSync = require(&apos;browser-sync&apos;);
+var reload = browserSync.reload;
+
+var appRoot = &apos;src/main/web&apos;
+
+// default task, doing nop
+gulp.task(&apos;default&apos;, function() {
+});
+
+
+// watch files for changes and auto-reload
+gulp.task(&apos;serve&apos;, function() {
+  browserSync({
+    server: {
+      baseDir: appRoot
+    }
+  });
+
+  gulp.watch([&apos;*.html&apos;, &apos;html/**/*.html&apos;, &apos;style/**/*.css&apos;, &apos;script/**/*.js&apos;], {cwd: appRoot}, reload);
+});&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;We added two taskes here: the &lt;code&gt;default&lt;/code&gt; task and the &lt;code&gt;serve&lt;/code&gt; task. For the &lt;code&gt;default&lt;/code&gt; task we do not have anything to do yet. The &lt;code&gt;serve&lt;/code&gt; task however will trigger the &lt;code&gt;browser-sync&lt;/code&gt; module. In the task definition we specify how our site is structured so that it will know wich files to serve and which to watch to trigger the auto-reload functionality.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;scaffold_your_web_application&quot;&gt;Scaffold Your Web Application&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Firstly scaffold your site with an empty &lt;code&gt;index.html&lt;/code&gt; wiring-in an empty stylesheet and javascript file:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;literalblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;touch src/main/web/index.html
+touch src/main/web/style/styles.css
+touch src/main/web/script/app.js&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Open &lt;code&gt;src/main/web/index.html&lt;/code&gt; in a text editor an copy-in the following contents:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;literalblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;&amp;lt;html&amp;gt;
+&amp;lt;head&amp;gt;
+  &amp;lt;title&amp;gt;${project_name}&amp;lt;/title&amp;gt;
+    &amp;lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;style/styles.css&quot;/&amp;gt;
+    &amp;lt;script type=&quot;text/javascript&quot; src=&quot;script/app.js&quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;/head&amp;gt;
+&amp;lt;body&amp;gt;
+  &amp;lt;h1&amp;gt;Hello World&amp;lt;/h1&amp;gt;
+  &amp;lt;p&amp;gt;Lorum ipsum...&amp;lt;/p&amp;gt;
+&amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;build_your_site_while_auto_reloading_it&quot;&gt;Build your Site while Auto-reloading it&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Now for the fun-part: You will use Gulp to serve your site on your local machine and auto-reload it in your browser while editing your html, style and script files:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;literalblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;gulp serve&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;optional_including_a_web_application_deployment_descriptor&quot;&gt;Optional: Including a Web Application Deployment Descriptor&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;When you plan on deploying on a J2EE application server such as Jetti or Tomcat you&amp;#8217;ll need a deployment descriptor matching the Servlet specification used in your Java code and supported by your target server. In this example we assume you&amp;#8217;ll settle for the current Servlet 3.1 specification from Java EE7 which is supported by Tomcat 8.5 amongst others.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;For other Servlet specs you need to use a different XSD schema specification for your &lt;code&gt;web.xml&lt;/code&gt;. See &lt;a href=&quot;http://www.mkyong.com/web-development/the-web-xml-deployment-descriptor-examples/&quot;&gt;these examples&lt;/a&gt; for the schema&amp;#8217;s matching the older Servlet 3.0, 2.5, 2.4 and 2.3 specifictions. If Tomcat is your appserver of choice, use this &lt;a href=&quot;http://tomcat.apache.org/whichversion.html&quot;&gt;version table&lt;/a&gt; to figure out which servlet spec you should specify in your web descriptor.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;First create the web descriptor file:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;literalblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;mkdir -p src/main/webapp/WEB-INF
+touch src/main/webapp/WEB-INF/web.xml&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Now open it &lt;code&gt;src/main/webapp/WEB-INF/web.xml&lt;/code&gt; in a text editor and copy-in the following contents. Either replace the variable &lt;code&gt;${project_name}&lt;/code&gt; with your actual project name, or leave it as-is when you are planning on using a resource filter from a maven build to substitute it at build time later:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;literalblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;&amp;lt;web-app xmlns=&quot;http://xmlns.jcp.org/xml/ns/javaee&quot;
+         xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+         xsi:schemaLocation=&quot;http://xmlns.jcp.org/xml/ns/javaee
+     http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd&quot;
+         version=&quot;3.1&quot;&amp;gt;
+
+         &amp;lt;display-name&amp;gt;${project_name}&amp;lt;/display-name&amp;gt;
+
+&amp;lt;/web-app&amp;gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+	  </description>
+    </item>
+    
+
+  </channel> 
+</rss>

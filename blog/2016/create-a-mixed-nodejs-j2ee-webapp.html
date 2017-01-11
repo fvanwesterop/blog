@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Create a mixed NodeJS - J2EE Webapp</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="keywords" content="">
+    <meta name="generator" content="JBake">
+
+    <!-- Le styles -->
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/asciidoctor.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link href="../../css/prettify.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
+    <link rel="shortcut icon" href="../../favicon.ico">
+  </head>
+  <body onload="prettyPrint()">
+    <div id="wrap">
+   
+	
+		<!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../../">fvanwesterop.github.io</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="../../index.html">Home</a></li>
+            <li><a href="../../about.html">About</a></li>
+            <li><a href="../../feed.xml">Subscribe</a></li>
+
+            <!-- <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li class="dropdown-header">Nav header</li>
+                <li><a href="#">Separated link</a></li>
+                <li><a href="#">One more separated link</a></li>
+              </ul>
+            </li> -->
+
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    <div class="container">
+	
+	<div class="page-header">
+		<h1>Create a mixed NodeJS - J2EE Webapp</h1>
+	</div>
+
+	<p><em>02 July 2016</em></p>
+
+	<p><div class="sect1">
+<h2 id="introduction">Introduction</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This article is a quick start guide on scaffolding a basic webapp with Node and Gulp but J2EE ready. Armed with nothing more than a text editor and a terminal we&#8217;ll put down a basic but working site using Gulp to test-drive it and using Node to manage the dependencies you will need later, including Gulp itself.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="quick_start_guide">Quick Start Guide</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="prerequisites">Prerequisites</h3>
+<div class="paragraph">
+<p>Firstly I&#8217;m assuming you already have a recent version of NodeJS (including the NPM package manager) installed. If not please install Node first using instructions appropriate for your platform. See the <a href="https://nodejs.org/en/download/">NodeJS website</a> for the available options. Personally I think you best use your platform&#8217;s <a href="https://nodejs.org/en/download/package-manager/">package manager</a> to install and maintain your NodeJS installation. This includes Apple OSX users that should be using Homebrew anyway to manage Linux-ish packages. Windows users will have to stick to the native installer app.</p>
+</div>
+<div class="paragraph">
+<p>Secondly it is advised to remove a potential pre-existing system-wide (global) <code>gulp</code> Node module to make sure it does not interfere with the <code>gulp-cli</code> module you will be installing globally. Besides, you will be using a project-local version of Gulp as a development scoped dependency so you do not need a globally installed version. To remove a global installed <code>gulp</code> version:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>npm --global rm gulp</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now do install <code>gulp-cli</code> globally:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>npm --global install gulp-cli</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="create_a_basic_project_structure">Create a basic project structure</h3>
+<div class="paragraph">
+<p>We adopt the common structure as used in the java/groovy community, following the default structure of build tools like maven and gradle:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>project_name=&lt;your_project_name_here&gt;
+mkdir ${project_name}
+cd ${project_name}
+
+mkdir -p src/main/web/style
+mkdir -p src/main/web/html
+mkdir -p src/main/web/script
+mkdir -p src/main/web/image/icon</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="create_javascript_descriptor_files">Create Javascript descriptor files</h3>
+<div class="paragraph">
+<p>Create a local Node environment in your project:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>npm init</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Just answer the questions as best as you can ;-)</p>
+</div>
+<div class="paragraph">
+<p>Now add the <code>gulp</code> module as a development dependency to Node&#8217;s <code>package.json</code>:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>npm install --save-dev gulp</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To serve-up your site and auto-reload it in your browser while working on it we will add the <code>browser-sync</code> module as development dependency:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>npm install --save-dev browser-sync</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Create  a descriptor file for Gulp:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>touch gulpfile.js</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now open it in your text editor and copy-in the following contents:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>var gulp = require('gulp');
+var browserSync = require('browser-sync');
+var reload = browserSync.reload;
+
+var appRoot = 'src/main/web'
+
+// default task, doing nop
+gulp.task('default', function() {
+});
+
+
+// watch files for changes and auto-reload
+gulp.task('serve', function() {
+  browserSync({
+    server: {
+      baseDir: appRoot
+    }
+  });
+
+  gulp.watch(['*.html', 'html/**/*.html', 'style/**/*.css', 'script/**/*.js'], {cwd: appRoot}, reload);
+});</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We added two taskes here: the <code>default</code> task and the <code>serve</code> task. For the <code>default</code> task we do not have anything to do yet. The <code>serve</code> task however will trigger the <code>browser-sync</code> module. In the task definition we specify how our site is structured so that it will know wich files to serve and which to watch to trigger the auto-reload functionality.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="scaffold_your_web_application">Scaffold Your Web Application</h3>
+<div class="paragraph">
+<p>Firstly scaffold your site with an empty <code>index.html</code> wiring-in an empty stylesheet and javascript file:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>touch src/main/web/index.html
+touch src/main/web/style/styles.css
+touch src/main/web/script/app.js</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Open <code>src/main/web/index.html</code> in a text editor an copy-in the following contents:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;${project_name}&lt;/title&gt;
+    &lt;link rel="stylesheet" type="text/css" href="style/styles.css"/&gt;
+    &lt;script type="text/javascript" src="script/app.js"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Hello World&lt;/h1&gt;
+  &lt;p&gt;Lorum ipsum...&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="build_your_site_while_auto_reloading_it">Build your Site while Auto-reloading it</h3>
+<div class="paragraph">
+<p>Now for the fun-part: You will use Gulp to serve your site on your local machine and auto-reload it in your browser while editing your html, style and script files:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>gulp serve</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="optional_including_a_web_application_deployment_descriptor">Optional: Including a Web Application Deployment Descriptor</h3>
+<div class="paragraph">
+<p>When you plan on deploying on a J2EE application server such as Jetti or Tomcat you&#8217;ll need a deployment descriptor matching the Servlet specification used in your Java code and supported by your target server. In this example we assume you&#8217;ll settle for the current Servlet 3.1 specification from Java EE7 which is supported by Tomcat 8.5 amongst others.</p>
+</div>
+<div class="paragraph">
+<p>For other Servlet specs you need to use a different XSD schema specification for your <code>web.xml</code>. See <a href="http://www.mkyong.com/web-development/the-web-xml-deployment-descriptor-examples/">these examples</a> for the schema&#8217;s matching the older Servlet 3.0, 2.5, 2.4 and 2.3 specifictions. If Tomcat is your appserver of choice, use this <a href="http://tomcat.apache.org/whichversion.html">version table</a> to figure out which servlet spec you should specify in your web descriptor.</p>
+</div>
+<div class="paragraph">
+<p>First create the web descriptor file:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>mkdir -p src/main/webapp/WEB-INF
+touch src/main/webapp/WEB-INF/web.xml</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now open it <code>src/main/webapp/WEB-INF/web.xml</code> in a text editor and copy-in the following contents. Either replace the variable <code>${project_name}</code> with your actual project name, or leave it as-is when you are planning on using a resource filter from a maven build to substitute it at build time later:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>&lt;web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+     http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1"&gt;
+
+         &lt;display-name&gt;${project_name}&lt;/display-name&gt;
+
+&lt;/web-app&gt;</pre>
+</div>
+</div>
+</div>
+</div>
+</div></p>
+
+	<hr />
+	
+		</div>
+		<div id="push"></div>
+    </div>
+    
+    <div id="footer">
+      <div class="container">
+        <p class="muted credit">&copy; 2014 | Mixed with <a href="http://getbootstrap.com/">Bootstrap v3.1.1</a> | Baked with <a href="http://jbake.org">JBake v2.3.0</a></p>
+      </div>
+    </div>
+    
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../../js/jquery-1.11.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/prettify.js"></script>
+    
+  </body>
+</html>
