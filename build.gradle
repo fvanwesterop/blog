@@ -5,21 +5,20 @@ buildscript {
         maven {
             url 'https://plugins.gradle.org/m2/'
         }
-  }
+    }
 
-  dependencies {
-    classpath 'me.champeau.gradle:jbake-gradle-plugin:0.2' 
-    classpath 'org.asciidoctor:asciidoctor-java-integration:0.1.4'
-    classpath 'org.codehaus.groovy:groovy:2.4.7'
-    classpath 'org.codehaus.groovy:groovy-templates:2.4.7'
-  }
+    dependencies {
+        classpath 'me.champeau.gradle:jbake-gradle-plugin:0.2' 
+        classpath 'org.asciidoctor:asciidoctor-java-integration:0.1.4'
+        classpath 'org.codehaus.groovy:groovy:2.4.7'
+        classpath 'org.codehaus.groovy:groovy-templates:2.4.7'
+    }
 }
 
 apply plugin: 'me.champeau.jbake'
 apply plugin: 'groovy'
 
-
-task publish(type: GradleBuild) {           
+task publish(type: GradleBuild) {
     buildFile = 'publish.gradle'
     tasks = ['publishGhPages']
 }

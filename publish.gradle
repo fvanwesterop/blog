@@ -1,20 +1,25 @@
 buildscript {
-  repositories {
-      jcenter()
-  }
+    repositories {
+        mavenLocal()
+        jcenter()
+        maven {
+            url 'https://plugins.gradle.org/m2/'
+        }
+    }
 
-  dependencies {
-    classpath 'org.ajoberstar:gradle-git:0.6.3'     
-  }
+    dependencies {
+      classpath 'org.ajoberstar:gradle-git:1.2.0'
+    }
 }
 
-apply plugin: 'github-pages'                        
+apply plugin: 'org.ajoberstar.github-pages'
 
 githubPages {
-  repoUri = 'git@github.com:fvanwesterop/blog.git'      
+  repoUri = 'git@github.com:fvanwesterop/blog.git'
+  targetBranch = 'gh-pages'
   pages {
-     from(file('build/jbake')) {
-     	into '.'                                    
-     }
+    from(file('build/jbake')) {
+      into '.'
+    }
   }
 }
