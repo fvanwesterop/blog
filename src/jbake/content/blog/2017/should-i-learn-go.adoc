@@ -1,0 +1,36 @@
+= Should I invest my Time in Learning Go
+Frank van Westerop
+2017-01-16
+:jbake-type: post
+:jbake-status: draft
+:jbake-tags: go
+:idprefix:
+:tiobe-index-link: http://www.tiobe.com/tiobe-index/
+:zdnet-article-link: http://www.zdnet.com/article/googles-go-beats-java-c-python-to-programming-language-of-the-year-crown/
+:info-world-article-link: http://www.infoworld.com/article/3155924/application-development/go-tops-java-c-python-for-programming-language-of-the-year.html
+:business-insider-article-link: https://www.businessinsider.nl/google-go-programming-language-of-the-year-2017-1/
+:uncle-bob-thechurn: http://blog.cleancoder.com/uncle-bob/2016/07/27/TheChurn.html
+
+== Introduction
+
+Recently I was approached by a prospect client for a project of theirs which involved a huge distributed environment on which they deploy their services. In the past they used Java for these services but now they had moved away from Java towards the https://golang.org/[Go] Language. Now they where looking for a developer to hire and I found my self in an intake interview with them.
+
+They knew verry well I was a Java developer with no prior experience with Go. And although I am interrested in learning other languages next to Java, I did not consider learning Go anytime soon. I am considering http://kotlinlang.org/[Kotlin] and https://www.python.org/[Python] for instance. And in fact I am verry happey to have invested some time into http://www.groovy-lang.org/[Groovy] already. Really:
+
+In much the same way that working with Spring becomes so much easier when you start adding Spring Boot to the mix, your live as Java developer becomes so much easier when you start adding Groovy code to your Java project. It's a lot easier to work with and integrates seemless with exiting Java code. And as a bonus: Groovy already is a well-respected citizin of the Spring eco system and also comes naturally with Spring Boot world making Spring Boot stuff even more easier to use.
+
+[quote, Ken Kousen - Seriously Use Groovy Now, SpringOne 2GX 2015]
+Now ... my talk are like: What's the problem? Why aren't you using this [Groovy]?
+
+
+
+But now the basic question at hand for me was: Would I be willing to invest my time into learning Go as well? While in the interview I would think not, although this customer had a really interresting project on offer for me to work on. But exactly on that day the {tiobe-index-link}[TIOB index] announced that the Go language had actually gained a lot of traction last year:
+
+[quote, TIOBE Index for January 2017]
+Google's Go is TIOBE's programming language of 2016
+
+And this was quickly picked up by a lot of tech-media. See for instance these articles on {zdnet-article-link}[ZDNet], {info-world-article-link}[InfoWorld] and {business-insider-article-link}[Business Insider]. Coincidence? Also th statement of .... one of the firestarters of NodeJS that he was moving over to Go was an interresting read [link here]. And of course it is often stated that picking up a new language every now and then, to see how stuff is done in other programming worlds, builds a better programmer of you in your core language.
+
+On the other hand, Robert Martin, aka `Uncle Bob`, last year wrote a nice a blog post called {uncle-bob-thechurn}[The Churn], where he humourosly describes two developers discussing how we programmers seem to hop on to the `next big thing` all the time, abandoning all the great infra structures and tooling we where just staring to enjoy and be productive with.
+
+So this was kind of a dilema for me: To Go or not to Go? The prospect client liked the interview we had. So now they where inviting me to do an assesment: They sent me a GitHub URL with a programming asignment. Which had to be solved in Go. Alright, that seemed like a reasonble thing to do for both parties: They could see if I could find my way around with a programming language I'd never seen before and for me this was a nice time-boxed way to see if, ehm, I could find my way around with a programming language I'd never seen before! And see for my self if programming Go would make a Java/Groovy developer happy. So I took the plunge, accepted the offered assignment. I'll describe my findings here.
