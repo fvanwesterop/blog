@@ -1,9 +1,9 @@
-= Create a mixed NodeJS - J2EE Webapp
+= Create a mixed NodeJS - JEE Webapp
 Frank van Westerop
 2016-07-02
 :jbake-type: post
 :jbake-status: published
-:jbake-tags: gulp, nodejs, scafffold,
+:jbake-tags: gulp, nodejs, scafffold, java, webapp
 :idprefix:
 
 == Introduction
@@ -111,7 +111,7 @@ Now for the fun-part: You will use Gulp to serve your site on your local machine
 
 
 === Optional: Including a Web Application Deployment Descriptor
-When you plan on deploying on a J2EE application server such as Jetti or Tomcat you'll need a deployment descriptor matching the Servlet specification used in your Java code and supported by your target server. In this example I assume you'll settle for the current Servlet 3.1 specification from Java EE7 which is supported by Tomcat 8.5 amongst others.
+When you plan on deploying on a JEE application server such as Jetti or Tomcat you'll need a deployment descriptor matching the Servlet specification used in your Java code and supported by your target server. In this example I assume you'll settle for the current Servlet 3.1 specification from Java EE7 which is supported by Tomcat 8.5 amongst others.
 
 For other Servlet specs you need to use a different XSD schema specification for your `web.xml`. See http://www.mkyong.com/web-development/the-web-xml-deployment-descriptor-examples/[these examples] for the schema's matching the older Servlet 3.0, 2.5, 2.4 and 2.3 specifictions. If Tomcat is your appserver of choice, use this http://tomcat.apache.org/whichversion.html[version table] to figure out which servlet spec you should specify in your web descriptor.
 
