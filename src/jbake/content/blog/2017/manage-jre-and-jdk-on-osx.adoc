@@ -1,0 +1,110 @@
+= Manage Java JRE and JDK's on Mac OSX
+Frank van Westerop
+2017-02-01
+:jbake-type: post
+:jbake-status: draft
+:jbake-tags:
+:idprefix:
+:uninstall-oracle-jre-link: https://www.java.com/en/download/help/mac_uninstall_java.xml
+:uninstall-oracle-jdk-link: https://docs.oracle.com/javase/8/docs/technotes/guides/install/mac_jdk.html#A1096903
+
+== First of: Don't touch these files
+You should not, nor need to, remove the following files yourself. These are all OSX-managed symbolic links to the actual files which we *will* deal with later on. The Apple updates mechanism probably would restore them anyway at some unpredictable point in the future. So just leave them.
+Besides, OSX uses these (maybe broken) links to show you a friendly pop-up when it notices you actually do not have one of these tools installed and try to use them and will direct you to how to abtain and install them.
+
+OSX managed symbolic links to JDK (do not remove):
+....
+/System/Library/Frameworks/JavaVM.framework
+/usr/bin/java
+/usr/bin/javac
+/usr/bin/javadoc
+/usr/bin/javah
+/usr/bin/javap
+/usr/bin/javaws
+....
+
+== Removal of the Java Development Kit (JDK)
+
+On the Oracle website you find these {uninstall-oracle-jde-link}[these official instructions] to remove the JDK from your system. These boil down to removal of the follwing dir(s):
+
+....
+sudo rm -rf /Library/Java/JavaVirtualMachines/jdk<version>.jdk
+....
+
+However the following left-overs have been detected by several people, so you may want no remove these as well:
+
+....
+sudo rm -rf /var/root/Library/Preferences/com.oracle.javadeployment.plist
+sudo rm -rf /var/db/receipts/com.oracle.jdk<version>.bom
+sudo rm -rf /var/db/receipts/com.oracle.jdk<version>.plist
+....
+
+=== Verify
+
+To list details on the current installed JDK's that OSX is aware of use he following command:
+....
+/usr/libexec/java_home -verbose
+....
+
+To get more info on the `java_home`-command itself use the `help`-parameter:
+....
+/usr/libexec/java_home --help
+....
+
+
+== Why you do not need a global Java Runtime Environment (JRE) installation
+Used only by some browsers and Java Webstart applictions. You probably don't need it fr these reasons:
+
+- The JRE is only needed for Java support in the browser, which you should not use or want
+- If you're a Java developer you install a JDK which comes bundled with it's own JRE
+- If you use an application that runs on the JVM it typically comes bundled with it's private JRE
+
+I'll elaborate a bit on these facts here:
+
+=== The JRE is only needed for Java support in the browser
+
+=== Java developers use a JDK
+
+=== JVM-based applications usually come bundled with their own JRE
+
+
+== Removal of the Java Runtime Environment (JRE)
+
+You may want to disable Java plugin support from your browser and/or close them, because we are about to uninstall the browser plugin too. Note that Chrome does not have Java Applet plugin support anymore but doe support Webstart, which also uses needs the JRE.
+
+On the Oracle website you find these {uninstall-oracle-jre-link}[these official instructions] to remove the JRE from your system. These boil down to removal of the follwing dirs and files:
+
+....
+sudo rm -rf /Library/Internet\ Plug-Ins/JavaAppletPlugin.plugin
+sudo rm -rf /Library/PreferencePanes/JavaControlPanel.prefPane
+rm -rf ~/Library/Application\ Support/Java
+....
+
+However the following left-overs have been detected by several people, so you may want no remove these as well:
+
+....
+sudo rm -f /var/db/receipts/com.oracle.jre.bom
+sudo rm -f /var/db/receipts/com.oracle.jre.plist
+rm -f ~/Library/Preferences/com.oracle.java.JavaAppletPlugin.plist
+rm -f ~/Library/Preferences/com.oracle.javadeployment.plist
+rm -rf ~/.oracle_jre_usage
+....
+
+Optionally also remove these JRE-tools related symlinks:
+
+....
+sudo rm -f /Library/LaunchAgents/com.oracle.java.Java-Updater.plist
+sudo rm -f /Library/LaunchDaemons/com.oracle.java.Helper-Tool.plist
+sudo rm -f /Library/Preferences/com.oracle.java.Helper-Tool.plist
+....
+
+
+
+== (Re)Installing an Oracle JDK natively using OSX tooling
+If there is no JDK installed on your machine you could just enter the `java` command in your shell to get the below popup. Alternatively you could give the following command
+
+....
+/usr/libexec/java_home --request
+....
+
+Clicking the "More Info..."-button will take you too the Oracle Java website where you can download the JDK and run the installer.
