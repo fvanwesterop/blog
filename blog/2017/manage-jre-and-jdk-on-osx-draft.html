@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Manage Java JRE and JDK&#8217;s on Mac OSX</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="fvanwesterop">
+    <meta name="keywords" content="">
+    <meta name="generator" content="JBake">
+
+    <!-- Le styles -->
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/asciidoctor.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link href="../../css/prettify.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
+    <link rel="shortcut icon" href="../../favicon.ico">
+  </head>
+  <body onload="prettyPrint()">
+    <div id="wrap">
+   
+	
+		<!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../../">fvanwesterop.github.io</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="../../index.html">Home</a></li>
+            <li><a href="../../about.html">About</a></li>
+            <li><a href="../../feed.xml">Subscribe</a></li>
+
+            <!-- <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li class="dropdown-header">Nav header</li>
+                <li><a href="#">Separated link</a></li>
+                <li><a href="#">One more separated link</a></li>
+              </ul>
+            </li> -->
+
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    <div class="container">
+	
+	<div class="page-header">
+		<h1>Manage Java JRE and JDK&#8217;s on Mac OSX</h1>
+	</div>
+
+	<p><em>01 February 2017</em></p>
+
+	<p><div class="sect1">
+<h2 id="first_of_don_t_touch_these_files">First of: Don&#8217;t touch these files</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You should not, nor need to, remove the following files yourself. These are all OSX-managed symbolic links to the actual files which we <strong>will</strong> deal with later on. The Apple updates mechanism probably would restore them anyway at some unpredictable point in the future. So just leave them.
+Besides, OSX uses these (maybe broken) links to show you a friendly pop-up when it notices you actually do not have one of these tools installed and try to use them and will direct you to how to abtain and install them.</p>
+</div>
+<div class="paragraph">
+<p>OSX managed symbolic links to JDK (do not remove):</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>/System/Library/Frameworks/JavaVM.framework
+/usr/bin/java
+/usr/bin/javac
+/usr/bin/javadoc
+/usr/bin/javah
+/usr/bin/javap
+/usr/bin/javaws</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="removal_of_the_java_development_kit_jdk">Removal of the Java Development Kit (JDK)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>On the Oracle website you find these {uninstall-oracle-jde-link}[these official instructions] to remove the JDK from your system. These boil down to removal of the follwing dir(s):</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>sudo rm -rf /Library/Java/JavaVirtualMachines/jdk&lt;version&gt;.jdk</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>However the following left-overs have been detected by several people, so you may want no remove these as well:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>sudo rm -rf /var/root/Library/Preferences/com.oracle.javadeployment.plist
+sudo rm -rf /var/db/receipts/com.oracle.jdk&lt;version&gt;.bom
+sudo rm -rf /var/db/receipts/com.oracle.jdk&lt;version&gt;.plist</pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="verify">Verify</h3>
+<div class="paragraph">
+<p>To list details on the current installed JDK&#8217;s that OSX is aware of use he following command:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>/usr/libexec/java_home -verbose</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To get more info on the <code>java_home</code>-command itself use the <code>help</code>-parameter:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>/usr/libexec/java_home --help</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="why_you_do_not_need_a_global_java_runtime_environment_jre_installation">Why you do not need a global Java Runtime Environment (JRE) installation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Used only by some browsers and Java Webstart applictions. You probably don&#8217;t need it fr these reasons:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The JRE is only needed for Java support in the browser, which you should not use or want</p>
+</li>
+<li>
+<p>If you&#8217;re a Java developer you install a JDK which comes bundled with it&#8217;s own JRE</p>
+</li>
+<li>
+<p>If you use an application that runs on the JVM it typically comes bundled with it&#8217;s private JRE</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>I&#8217;ll elaborate a bit on these facts here:</p>
+</div>
+<div class="sect2">
+<h3 id="the_jre_is_only_needed_for_java_support_in_the_browser">The JRE is only needed for Java support in the browser</h3>
+
+</div>
+<div class="sect2">
+<h3 id="java_developers_use_a_jdk">Java developers use a JDK</h3>
+
+</div>
+<div class="sect2">
+<h3 id="jvm_based_applications_usually_come_bundled_with_their_own_jre">JVM-based applications usually come bundled with their own JRE</h3>
+
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="removal_of_the_java_runtime_environment_jre">Removal of the Java Runtime Environment (JRE)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You may want to disable Java plugin support from your browser and/or close them, because we are about to uninstall the browser plugin too. Note that Chrome does not have Java Applet plugin support anymore but doe support Webstart, which also uses needs the JRE.</p>
+</div>
+<div class="paragraph">
+<p>On the Oracle website you find these <a href="https://www.java.com/en/download/help/mac_uninstall_java.xml">these official instructions</a> to remove the JRE from your system. These boil down to removal of the follwing dirs and files:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>sudo rm -rf /Library/Internet\ Plug-Ins/JavaAppletPlugin.plugin
+sudo rm -rf /Library/PreferencePanes/JavaControlPanel.prefPane
+rm -rf ~/Library/Application\ Support/Java</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>However the following left-overs have been detected by several people, so you may want no remove these as well:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>sudo rm -f /var/db/receipts/com.oracle.jre.bom
+sudo rm -f /var/db/receipts/com.oracle.jre.plist
+rm -f ~/Library/Preferences/com.oracle.java.JavaAppletPlugin.plist
+rm -f ~/Library/Preferences/com.oracle.javadeployment.plist
+rm -rf ~/.oracle_jre_usage</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Optionally also remove these JRE-tools related symlinks:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>sudo rm -f /Library/LaunchAgents/com.oracle.java.Java-Updater.plist
+sudo rm -f /Library/LaunchDaemons/com.oracle.java.Helper-Tool.plist
+sudo rm -f /Library/Preferences/com.oracle.java.Helper-Tool.plist</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="re_installing_an_oracle_jdk_natively_using_osx_tooling">(Re)Installing an Oracle JDK natively using OSX tooling</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If there is no JDK installed on your machine you could just enter the <code>java</code> command in your shell to get the below popup. Alternatively you could give the following command</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>/usr/libexec/java_home --request</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Clicking the "More Info&#8230;&#8203;"-button will take you too the Oracle Java website where you can download the JDK and run the installer.</p>
+</div>
+</div>
+</div></p>
+
+	<hr />
+	
+		</div>
+		<div id="push"></div>
+    </div>
+    
+    <div id="footer">
+      <div class="container">
+        <p class="muted credit">&copy; 2016 - 2017 | Mixed with <a href="http://getbootstrap.com/">Bootstrap v3.1.1</a> | Baked with <a href="http://jbake.org">JBake v2.5.0</a></p>
+      </div>
+    </div>
+    
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../../js/jquery-1.11.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/prettify.js"></script>
+    
+  </body>
+</html>

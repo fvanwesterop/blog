@@ -6,12 +6,12 @@
     <atom:link href="https://fvanwesterop.github.io/blog//feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>Wed, 11 Jan 2017 23:43:18 +0100</pubDate>
-    <lastBuildDate>Wed, 11 Jan 2017 23:43:18 +0100</lastBuildDate>
+    <pubDate>Wed, 1 Feb 2017 12:42:57 +0100</pubDate>
+    <lastBuildDate>Wed, 1 Feb 2017 12:42:57 +0100</lastBuildDate>
 
     
     <item>
-      <title>Create a mixed NodeJS - J2EE Webapp</title>
+      <title>Create a mixed NodeJS - JEE Webapp</title>
       <link>https://fvanwesterop.github.io/blog//blog/2016/create-a-mixed-nodejs-j2ee-webapp.html</link>
       <pubDate>Sat, 2 Jul 2016 00:00:00 +0200</pubDate>
       <guid isPermaLink="false">blog/2016/create-a-mixed-nodejs-j2ee-webapp.html</guid>
@@ -181,7 +181,7 @@ touch src/main/web/script/app.js&lt;/pre&gt;
 &lt;div class=&quot;sect2&quot;&gt;
 &lt;h3 id=&quot;optional_including_a_web_application_deployment_descriptor&quot;&gt;Optional: Including a Web Application Deployment Descriptor&lt;/h3&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;When you plan on deploying on a J2EE application server such as Jetti or Tomcat you&amp;#8217;ll need a deployment descriptor matching the Servlet specification used in your Java code and supported by your target server. In this example we assume you&amp;#8217;ll settle for the current Servlet 3.1 specification from Java EE7 which is supported by Tomcat 8.5 amongst others.&lt;/p&gt;
+&lt;p&gt;When you plan on deploying on a JEE application server such as Jetti or Tomcat you&amp;#8217;ll need a deployment descriptor matching the Servlet specification used in your Java code and supported by your target server. In this example I assume you&amp;#8217;ll settle for the current Servlet 3.1 specification from Java EE7 which is supported by Tomcat 8.5 amongst others.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;For other Servlet specs you need to use a different XSD schema specification for your &lt;code&gt;web.xml&lt;/code&gt;. See &lt;a href=&quot;http://www.mkyong.com/web-development/the-web-xml-deployment-descriptor-examples/&quot;&gt;these examples&lt;/a&gt; for the schema&amp;#8217;s matching the older Servlet 3.0, 2.5, 2.4 and 2.3 specifictions. If Tomcat is your appserver of choice, use this &lt;a href=&quot;http://tomcat.apache.org/whichversion.html&quot;&gt;version table&lt;/a&gt; to figure out which servlet spec you should specify in your web descriptor.&lt;/p&gt;

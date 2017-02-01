@@ -2,10 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="utf-8"/>
-    <title>Create a mixed NodeJS - J2EE Webapp</title>
+    <title>Create a mixed NodeJS - JEE Webapp</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="author" content="fvanwesterop">
     <meta name="keywords" content="">
     <meta name="generator" content="JBake">
 
@@ -69,7 +69,7 @@
     <div class="container">
 	
 	<div class="page-header">
-		<h1>Create a mixed NodeJS - J2EE Webapp</h1>
+		<h1>Create a mixed NodeJS - JEE Webapp</h1>
 	</div>
 
 	<p><em>02 July 2016</em></p>
@@ -239,7 +239,7 @@ touch src/main/web/script/app.js</pre>
 <div class="sect2">
 <h3 id="optional_including_a_web_application_deployment_descriptor">Optional: Including a Web Application Deployment Descriptor</h3>
 <div class="paragraph">
-<p>When you plan on deploying on a J2EE application server such as Jetti or Tomcat you&#8217;ll need a deployment descriptor matching the Servlet specification used in your Java code and supported by your target server. In this example we assume you&#8217;ll settle for the current Servlet 3.1 specification from Java EE7 which is supported by Tomcat 8.5 amongst others.</p>
+<p>When you plan on deploying on a JEE application server such as Jetti or Tomcat you&#8217;ll need a deployment descriptor matching the Servlet specification used in your Java code and supported by your target server. In this example I assume you&#8217;ll settle for the current Servlet 3.1 specification from Java EE7 which is supported by Tomcat 8.5 amongst others.</p>
 </div>
 <div class="paragraph">
 <p>For other Servlet specs you need to use a different XSD schema specification for your <code>web.xml</code>. See <a href="http://www.mkyong.com/web-development/the-web-xml-deployment-descriptor-examples/">these examples</a> for the schema&#8217;s matching the older Servlet 3.0, 2.5, 2.4 and 2.3 specifictions. If Tomcat is your appserver of choice, use this <a href="http://tomcat.apache.org/whichversion.html">version table</a> to figure out which servlet spec you should specify in your web descriptor.</p>
