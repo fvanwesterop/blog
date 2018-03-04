@@ -9,7 +9,7 @@ jbake {
     groovyTemplatesVersion = '2.4.14'
 }
 
-task publish(dependsOn: 'jbake', type: GradleBuild) {
+task publish(dependsOn: 'bake', type: GradleBuild) {
     buildFile = 'publish.gradle'
     tasks = ['publishGhPages']
 }

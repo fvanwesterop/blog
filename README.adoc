@@ -23,10 +23,13 @@ There are helper scripts to perform the basic tasks, so the current way of worki
 * Start webbrowser at `http://localhost:5050/`
 
 Then iterate over the following steps:
+
 * Write new or edit existing asciidoc content in `src/jbake/content`
 * run `./bake-site`
 
-When all is well publish the site on github:
-* run `publish-site`
+When all is well publish the site on github and stop the local dev server:
+
+* run `./publish-site`
+* run `./stop-site`
 
 Maybe this info inspires you to start or migrate your own blog in this way. Enjoy!
