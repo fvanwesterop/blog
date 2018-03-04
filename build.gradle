@@ -1,25 +1,15 @@
-buildscript {
-    repositories {
-        mavenLocal()
-        jcenter()
-        maven {
-            url 'https://plugins.gradle.org/m2/'
-        }
-    }
-
-    dependencies {
-        classpath 'me.champeau.gradle:jbake-gradle-plugin:0.2'
-        classpath 'org.jbake:jbake-core:2.5.0'
-        classpath 'org.asciidoctor:asciidoctorj:1.5.4.1'
-        classpath 'org.codehaus.groovy:groovy:2.4.7'
-        classpath 'org.codehaus.groovy:groovy-templates:2.4.7'
-    }
+plugins {
+    id 'org.jbake.site' version '1.0.0'
+    id 'groovy'
 }
 
-apply plugin: 'me.champeau.jbake'
-apply plugin: 'groovy'
+jbake {
+    srcDirName = file '/src/jbake'
+    destDirName = file('/jbake')
+    groovyTemplatesVersion = '2.4.14'
+}
 
-task publish(type: GradleBuild) {
+task publish(dependsOn: 'jbake', type: GradleBuild) {
     buildFile = 'publish.gradle'
     tasks = ['publishGhPages']
 }

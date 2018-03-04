@@ -1,4 +1,4 @@
-= Manage Java JRE and JDK's on Mac OSX
+= Install and Manage Java with image:{sdkman-img-url}[alt=SDKMAN,250] on Linux and OSX
 Frank van Westerop
 2017-02-01
 :jbake-type: post
@@ -7,6 +7,103 @@ Frank van Westerop
 :idprefix:
 :uninstall-oracle-jre-link: https://www.java.com/en/download/help/mac_uninstall_java.xml
 :uninstall-oracle-jdk-link: https://docs.oracle.com/javase/8/docs/technotes/guides/install/mac_jdk.html#A1096903
+:manage-jdk-install-webupd8-link: http://www.webupd8.org/2012/09/install-oracle-java-8-in-ubuntu-via-ppa.html
+:manage-jdk-install-webupd9-link: http://www.webupd8.org/2015/02/install-oracle-java-9-in-ubuntu-linux.html
+:sdkman-img-url: http://sdkman.io/img/sdk-man-small-pattern.svg
+
+[.lead]
+It always has been a bit of a hassle to manage multiple Java Development Kits (JDK) on your system. Although each platform has it's little helper tools or best practices to work with multiple installatons, what yo really want is a decent package manager: SDKMAN!
+
+== Introduction
+Let's first look at some best practices of dealing with installing and multiple Java environments on both Linux and OSX. On both patforms they are done differently. Then we will see how you can accomplish the same with SDKMAN so much easier. And more.
+
+
+SDKMAN! is a cross-platform package manager that can manage a whole range of SDK's and frameworks for you and will let you select the version to work with on the fly. It will do the trivial but tedious version management tasks for you and then step out of your way. And now it can even manage al your Java JDK's!
+
+== Installing Java on Linux
+
+A verry good point of all Linux distributions I'm aware of is that they have a package manager that you can use to install software packages and their dependencies. That even counts for your JDK's. It will even let you install multiple versions of it alongside, something that typically is a bad idea for most other software packages. Unfortunately this only holds true for the Open JDK: For legal reasons the Linux distributors are not able to distribute the Oracle JDK's in the same way.
+
+== Selecting a Default JDK on Linux
+
+=== Using the Alternatives Command on Linux
+
+On Linux we have the `alternatives` command that will let you select a specific verion of a CLI command if you have multiple versions installed. It is not specifically ment for dealing with Java installations but it does work for that. For instance to select a specific version of the Java compiler to be used whenever the `javac`-command is issued you would do:
+
+....
+alternatives --config javac
+....
+
+It will then come up with a list of all versions of the `javac` binary in the JDK's you have installed on your system. Or atleast the ones that are maintained by your system's package manager (e.g. `yum` or `apt`). The problem with this approach though is that it works on a command-by-command basis. So you also would need the `java` byte-code interpreter to be of the same version JDK as the compiler you would need to repeat the exercise selecting the proper version:
+
+....
+alternatives --config java
+....
+
+If you want to switch-over an entire JDK version in this way you would need to issue this command for each and every utility the JDK provides you with. And the last time I checked I counted 44 utilities in the `bin` directory of a JDK verion 8. Additionally you should not forget to set the `JAVA_HOME` environment variable in your shell startup script (e.g. bash_rc or zsh_rc) to the appropriate JDK. Good luck with all that!
+
+=== Using Customized JDK Distributions from WEBUPD8
+The guys from WEBUPD8 team provide convenient scripts that you can install with the Apt package manager that will let you {manage-jdk-install-webupd8-link}[install Oracle JDK 8] and the {manage-jdk-install-webupd9-link}[install Oracle JDK 9]. In this way the Oracle JDK's on your system will be managed by the Apt package manager.
+
+Additionally they provide Apt packages that will let you select the JDK you want to make the default one on your system. In fact these scripts fire a whole series of `alternatives --config` commands, as described in the previous paragraph.
+
+Say you have both Oracle JDK 8 and 9 installed, you are currently running JDK 9 and need to switch back to JDK 8 for a while. You would then simply do:
+
+....
+sudo apt-get remove oracle-java9-set-default
+sudo apt-get install oracle-java8-set-default
+....
+
+However, as you probably can tell from these commands, this solution only works for Debian-ish flavors of Linux featuring the Apt package manager, so just Debian, Ubuntu anf Linux Mint. Whenever I'm on one of those systems, this was tmy preferred way of dealing with JDK versions. Until now.
+
+== The Old-School OSX Way
+
+
+=== Installing JDK's
+
+The most used options are simply ownload the installer from the Oracle website and run it, or use Homebrew to install them for you. Using Homebrew is often preferred:
+
+....
+brew cask install caskroom/versions/java7
+brew cask install caskroom/versions/java
+brew cask install caskroom/versions/java9-beta
+....
+
+=== Selecting a default JDK
+
+On OSX we have the `java_home` utility which resides in `/usr/libexec/`. To see which JDK's are installed on your system you would do:
+
+....
+/usr/libexec/java_home --verbose
+
+Matching Java Virtual Machines (1):
+    1.8.0_121, x86_64:	"Java SE 8"	/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home
+....
+
+In this case it is showing only one VM but it will show all installed JRE's and JDK's installed on your system. To make one of them the default JDK you simply set the Java home variable to point to the path where the JDK of choice lives, using the `java_home` utility itself to produce the full path. For example:
+
+....
+JAVA_HOME=`/usr/libexec/java_home -v jdk1.8.0_121`
+....
+
+This would work because the `-v` switch greps just the path to a JDK (partially) matching the specified version, which is in this case 1.8.0 update 121. I used to put a command like this in my ZSH startup script:
+
+[[app-listing]]
+[source,bash]
+.file: .zshrc
+----
+JAVA_VERSION="1.8*"
+export JAVA_HOME="`/usr/libexec/java_home -v ${JAVA_VERSION}`"
+----
+
+Although this works fine, I would still need to manually install whichever JDK version I might need.
+
+
+== image:{sdkman-img-url}[alt=SDKMAN,150] The Modern Way
+
+Lorum ipsum tralalal
+
+
 
 == First of: Don't touch these files
 You should not, nor need to, remove the following files yourself. These are all OSX-managed symbolic links to the actual files which we *will* deal with later on. The Apple updates mechanism probably would restore them anyway at some unpredictable point in the future. So just leave them.

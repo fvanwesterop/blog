@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+
+BASE_DIR=$(dirname $0)
+
+cd ${BASE_DIR}
+groovy server.groovy &

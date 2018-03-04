@@ -1,0 +1,79 @@
+= New Features in Groovy 2.5
+Frank van Westerop
+2017-01-16
+:jbake-type: post
+:jbake-status: draft
+:jbake-tags: go
+:idprefix:
+:link: http://www.foobar.com
+
+== Intro
+
+With two core Groovy commiters in the house there where a number of thing said on the upcomming Groovy 2.5 release.
+here where small additions like fine-tuning already existing annotations, to more obscure things like a macro system for AST Transformation authors. But the big thing for mere mortal Groovy users is probably the new parser code-named Parrot. This makes new language constructs possible which where added too.
+
+==Canonical Anotation
+@Canonical becomes a meta annotation - lookup what does this mean?
+
+==TupleConstrucit Anotation
+@TupleConstrucit has now pre- and post configuration abilities (pre/post events) like changing a field parameter, or assert a parameter value for soemthing (eg not being null)
+
+==MapCOnstrucot Annotation
+@MapCOnstructor also has pre/post events now
+
+==Immutable Annotation
+you van now extend the immutable-annotade class
+
+
+==AutoImplement Annotation
+@AutoImplement temporarly "implement" a method with some stub (eg throw Unsupportedoperationexception or whatever)
+
+
+==Grab Command in groovysh
+Use :grab to import some lib in groovysh
+
+==Delegate annotation on getters
+
+example:
+
+class Person {
+	String name
+	@Delegate
+	String getName()  {
+		name.reverse()
+	}
+}
+
+This will do what exactly?
+
+==Customizable JSON Serializer
+
+
+
+==AST Macros
+Simplifies writing implementation of your AST Transformations using a new macro subsystem.
+
+
+
+==New Parser (named Parser)
+
+== New language COnsructs
+=== Do While loop
+
+=== !in and !instanceof
+
+classic array initializayion
+
+safe indexing: List list = null; assert list?[2] == null
+
+try with resources
+
+Lamda support (next to "classic" Closures)
+
+
+
+[quote, Ken Kousen - Seriously Use Groovy Now, SpringOne 2GX 2015]
+Now ... my talk are like: What's the problem? Why aren't you using this [Groovy]?
+
+
+

@@ -1,13 +1,16 @@
 plugins {
-  id 'org.ajoberstar.github-pages' version '1.6.0'
+  id 'org.ajoberstar.github-pages' version '1.7.2'
 }
 
 githubPages {
+
   repoUri = 'git@github.com:fvanwesterop/blog.git'
   targetBranch = 'gh-pages'
+
   pages {
     from(file('build/jbake')) {
       into '.'
     }
   }
+  
 }

@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+
+server_pid="$(pgrep -f 'server.groovy')"
+
+if [ -n "${server_pid}" ]; then
+	echo "Stopping server with PID='${server_pid}'."
+	kill "${server_pid}"
+else
+	echo "Server is not running."
+fi
