@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8"/>
-    <title>Manage Java JRE and JDK&#8217;s on Mac OSX</title>
+    <title>Install and Manage Java with <span class="image"><img src="http://sdkman.io/img/sdk-man-small-pattern.svg" alt="SDKMAN" width="250"></span> on Linux and OSX</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="fvanwesterop">
@@ -69,12 +69,147 @@
     <div class="container">
 	
 	<div class="page-header">
-		<h1>Manage Java JRE and JDK&#8217;s on Mac OSX</h1>
+		<h1>Install and Manage Java with <span class="image"><img src="http://sdkman.io/img/sdk-man-small-pattern.svg" alt="SDKMAN" width="250"></span> on Linux and OSX</h1>
 	</div>
 
 	<p><em>01 February 2017</em></p>
 
-	<p><div class="sect1">
+	<p><div id="preamble">
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>It always has been a bit of a hassle to manage multiple Java Development Kits (JDK) on your system. Although each platform has it&#8217;s little helper tools or best practices to work with multiple installatons, what yo really want is a decent package manager: SDKMAN!</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="introduction">Introduction</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Let&#8217;s first look at some best practices of dealing with installing and multiple Java environments on both Linux and OSX. On both patforms they are done differently. Then we will see how you can accomplish the same with SDKMAN so much easier. And more.</p>
+</div>
+<div class="paragraph">
+<p>SDKMAN! is a cross-platform package manager that can manage a whole range of SDK&#8217;s and frameworks for you and will let you select the version to work with on the fly. It will do the trivial but tedious version management tasks for you and then step out of your way. And now it can even manage al your Java JDK&#8217;s!</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="installing_java_on_linux">Installing Java on Linux</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A verry good point of all Linux distributions I&#8217;m aware of is that they have a package manager that you can use to install software packages and their dependencies. That even counts for your JDK&#8217;s. It will even let you install multiple versions of it alongside, something that typically is a bad idea for most other software packages. Unfortunately this only holds true for the Open JDK: For legal reasons the Linux distributors are not able to distribute the Oracle JDK&#8217;s in the same way.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="selecting_a_default_jdk_on_linux">Selecting a Default JDK on Linux</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="using_the_alternatives_command_on_linux">Using the Alternatives Command on Linux</h3>
+<div class="paragraph">
+<p>On Linux we have the <code>alternatives</code> command that will let you select a specific verion of a CLI command if you have multiple versions installed. It is not specifically ment for dealing with Java installations but it does work for that. For instance to select a specific version of the Java compiler to be used whenever the <code>javac</code>-command is issued you would do:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>alternatives --config javac</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>It will then come up with a list of all versions of the <code>javac</code> binary in the JDK&#8217;s you have installed on your system. Or atleast the ones that are maintained by your system&#8217;s package manager (e.g. <code>yum</code> or <code>apt</code>). The problem with this approach though is that it works on a command-by-command basis. So you also would need the <code>java</code> byte-code interpreter to be of the same version JDK as the compiler you would need to repeat the exercise selecting the proper version:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>alternatives --config java</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you want to switch-over an entire JDK version in this way you would need to issue this command for each and every utility the JDK provides you with. And the last time I checked I counted 44 utilities in the <code>bin</code> directory of a JDK verion 8. Additionally you should not forget to set the <code>JAVA_HOME</code> environment variable in your shell startup script (e.g. bash_rc or zsh_rc) to the appropriate JDK. Good luck with all that!</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="using_customized_jdk_distributions_from_webupd8">Using Customized JDK Distributions from WEBUPD8</h3>
+<div class="paragraph">
+<p>The guys from WEBUPD8 team provide convenient scripts that you can install with the Apt package manager that will let you <a href="http://www.webupd8.org/2012/09/install-oracle-java-8-in-ubuntu-via-ppa.html">install Oracle JDK 8</a> and the <a href="http://www.webupd8.org/2015/02/install-oracle-java-9-in-ubuntu-linux.html">install Oracle JDK 9</a>. In this way the Oracle JDK&#8217;s on your system will be managed by the Apt package manager.</p>
+</div>
+<div class="paragraph">
+<p>Additionally they provide Apt packages that will let you select the JDK you want to make the default one on your system. In fact these scripts fire a whole series of <code>alternatives --config</code> commands, as described in the previous paragraph.</p>
+</div>
+<div class="paragraph">
+<p>Say you have both Oracle JDK 8 and 9 installed, you are currently running JDK 9 and need to switch back to JDK 8 for a while. You would then simply do:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>sudo apt-get remove oracle-java9-set-default
+sudo apt-get install oracle-java8-set-default</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>However, as you probably can tell from these commands, this solution only works for Debian-ish flavors of Linux featuring the Apt package manager, so just Debian, Ubuntu anf Linux Mint. Whenever I&#8217;m on one of those systems, this was tmy preferred way of dealing with JDK versions. Until now.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="the_old_school_osx_way">The Old-School OSX Way</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="installing_jdk_s">Installing JDK&#8217;s</h3>
+<div class="paragraph">
+<p>The most used options are simply ownload the installer from the Oracle website and run it, or use Homebrew to install them for you. Using Homebrew is often preferred:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>brew cask install caskroom/versions/java7
+brew cask install caskroom/versions/java
+brew cask install caskroom/versions/java9-beta</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="selecting_a_default_jdk">Selecting a default JDK</h3>
+<div class="paragraph">
+<p>On OSX we have the <code>java_home</code> utility which resides in <code>/usr/libexec/</code>. To see which JDK&#8217;s are installed on your system you would do:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>/usr/libexec/java_home --verbose
+
+Matching Java Virtual Machines (1):
+    1.8.0_121, x86_64:	"Java SE 8"	/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In this case it is showing only one VM but it will show all installed JRE&#8217;s and JDK&#8217;s installed on your system. To make one of them the default JDK you simply set the Java home variable to point to the path where the JDK of choice lives, using the <code>java_home</code> utility itself to produce the full path. For example:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>JAVA_HOME=`/usr/libexec/java_home -v jdk1.8.0_121`</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This would work because the <code>-v</code> switch greps just the path to a JDK (partially) matching the specified version, which is in this case 1.8.0 update 121. I used to put a command like this in my ZSH startup script:</p>
+</div>
+<div id="app-listing" class="listingblock">
+<div class="title">file: .zshrc</div>
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-bash" data-lang="bash">JAVA_VERSION="1.8*"
+export JAVA_HOME="`/usr/libexec/java_home -v ${JAVA_VERSION}`"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Although this works fine, I would still need to manually install whichever JDK version I might need.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="span_class_image_img_src_http_sdkman_io_img_sdk_man_small_pattern_svg_alt_sdkman_width_150_span_the_modern_way"><span class="image"><img src="http://sdkman.io/img/sdk-man-small-pattern.svg" alt="SDKMAN" width="150"></span> The Modern Way</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Lorum ipsum tralalal</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="first_of_don_t_touch_these_files">First of: Don&#8217;t touch these files</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -240,7 +375,7 @@ sudo rm -f /Library/Preferences/com.oracle.java.Helper-Tool.plist</pre>
     
     <div id="footer">
       <div class="container">
-        <p class="muted credit">&copy; 2016 - 2017 | Mixed with <a href="http://getbootstrap.com/">Bootstrap v3.1.1</a> | Baked with <a href="http://jbake.org">JBake v2.5.0</a></p>
+        <p class="muted credit">&copy; 2016 - 2018 | Mixed with <a href="http://getbootstrap.com/">Bootstrap v3.1.1</a> | Baked with <a href="http://jbake.org">JBake v2.5.1</a></p>
       </div>
     </div>
     

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>New Features in Groovy 2.5</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="fvanwesterop">
+    <meta name="keywords" content="">
+    <meta name="generator" content="JBake">
+
+    <!-- Le styles -->
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/asciidoctor.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link href="../../css/prettify.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
+    <link rel="shortcut icon" href="../../favicon.ico">
+  </head>
+  <body onload="prettyPrint()">
+    <div id="wrap">
+   
+	
+		<!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../../">fvanwesterop.github.io</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="../../index.html">Home</a></li>
+            <li><a href="../../about.html">About</a></li>
+            <li><a href="../../feed.xml">Subscribe</a></li>
+
+            <!-- <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li class="dropdown-header">Nav header</li>
+                <li><a href="#">Separated link</a></li>
+                <li><a href="#">One more separated link</a></li>
+              </ul>
+            </li> -->
+
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    <div class="container">
+	
+	<div class="page-header">
+		<h1>New Features in Groovy 2.5</h1>
+	</div>
+
+	<p><em>16 January 2017</em></p>
+
+	<p><div class="sect1">
+<h2 id="intro">Intro</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>With two core Groovy commiters in the house there where a number of thing said on the upcomming Groovy 2.5 release.
+here where small additions like fine-tuning already existing annotations, to more obscure things like a macro system for AST Transformation authors. But the big thing for mere mortal Groovy users is probably the new parser code-named Parrot. This makes new language constructs possible which where added too.</p>
+</div>
+<div class="paragraph">
+<p>==Canonical Anotation
+@Canonical becomes a meta annotation - lookup what does this mean?</p>
+</div>
+<div class="paragraph">
+<p>==TupleConstrucit Anotation
+@TupleConstrucit has now pre- and post configuration abilities (pre/post events) like changing a field parameter, or assert a parameter value for soemthing (eg not being null)</p>
+</div>
+<div class="paragraph">
+<p>==MapCOnstrucot Annotation
+@MapCOnstructor also has pre/post events now</p>
+</div>
+<div class="paragraph">
+<p>==Immutable Annotation
+you van now extend the immutable-annotade class</p>
+</div>
+<div class="paragraph">
+<p>==AutoImplement Annotation
+@AutoImplement temporarly "implement" a method with some stub (eg throw Unsupportedoperationexception or whatever)</p>
+</div>
+<div class="paragraph">
+<p>==Grab Command in groovysh
+Use :grab to import some lib in groovysh</p>
+</div>
+<div class="paragraph">
+<p>==Delegate annotation on getters</p>
+</div>
+<div class="paragraph">
+<p>example:</p>
+</div>
+<div class="paragraph">
+<p>class Person {
+	String name
+	@Delegate
+	String getName()  {
+		name.reverse()
+	}
+}</p>
+</div>
+<div class="paragraph">
+<p>This will do what exactly?</p>
+</div>
+<div class="paragraph">
+<p>==Customizable JSON Serializer</p>
+</div>
+<div class="paragraph">
+<p>==AST Macros
+Simplifies writing implementation of your AST Transformations using a new macro subsystem.</p>
+</div>
+<div class="paragraph">
+<p>==New Parser (named Parser)</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="new_language_consructs">New language COnsructs</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="do_while_loop">Do While loop</h3>
+
+</div>
+<div class="sect2">
+<h3 id="in_and_instanceof">!in and !instanceof</h3>
+<div class="paragraph">
+<p>classic array initializayion</p>
+</div>
+<div class="paragraph">
+<p>safe indexing: List list = null; assert list?[2] == null</p>
+</div>
+<div class="paragraph">
+<p>try with resources</p>
+</div>
+<div class="paragraph">
+<p>Lamda support (next to "classic" Closures)</p>
+</div>
+<div class="quoteblock">
+<blockquote>
+Now &#8230;&#8203; my talk are like: What&#8217;s the problem? Why aren&#8217;t you using this [Groovy]?
+</blockquote>
+<div class="attribution">
+&#8212; Ken Kousen - Seriously Use Groovy Now<br>
+<cite>SpringOne 2GX 2015</cite>
+</div>
+</div>
+</div>
+</div>
+</div></p>
+
+	<hr />
+	
+		</div>
+		<div id="push"></div>
+    </div>
+    
+    <div id="footer">
+      <div class="container">
+        <p class="muted credit">&copy; 2016 - 2018 | Mixed with <a href="http://getbootstrap.com/">Bootstrap v3.1.1</a> | Baked with <a href="http://jbake.org">JBake v2.5.1</a></p>
+      </div>
+    </div>
+    
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../../js/jquery-1.11.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/prettify.js"></script>
+    
+  </body>
+</html>
