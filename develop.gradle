@@ -1,5 +1,5 @@
 plugins {
-	id 'groovy'
+    id 'groovy'
     id 'org.jbake.site' version '1.1.1'
     id "org.kordamp.gradle.livereload" version "0.2.1"
 }
