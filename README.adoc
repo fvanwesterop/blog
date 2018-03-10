@@ -1,35 +1,25 @@
 :source-highlighter: prettify
 
-= My blog site
+=  blog site sources
 Frank van Westerop <https://github.com/fvanwesterop[@fvanwesterop]>
 ifdef::env-github,env-browser[:outfilesuffix: .adoc]
 
-These are the sources for my blog site. It is powered by awesome technology like http://www.groovy-lang.org/[Groovy], http://asciidoctor.org/docs/what-is-asciidoc/[AsciiDoc], http://jbake.org/[JBake], http://getbootstrap.com/getting-started/[Bootstrap] and https://gradle.org/[Gradle].
+These are the sources of my blog site at GitHub. It is powered by these awesome technologies from the Groovy ECO-system:
 
-I write the actual blog posts and other content in AsciiDoc format. These documents are then transformed by JBake using page templates into HTML format and https://fvanwesterop.github.io/blog/[published on GitHub] using a Gradle build.
+* http://asciidoctor.org/docs/what-is-asciidoc/[AsciiDoc]
+* http://jbake.org/[JBake]
+* https://gsp.grails.org/latest/guide/index.html[Groovy Server Pages]
+* http://getbootstrap.com/getting-started/[Bootstrap]
+* https://gradle.org/[Gradle].
 
-JBake provides the structure for my site and performs the transformation from AsciiDoc to HTML. This is done using templates which I also provide in the source code. JBake supports a number of template engines for this. Plugging in a specific template engine is done by providing the library containing the engine of choice to JBake. I chose for http://docs.groovy-lang.org/latest/html/documentation/template-engines.html[groovy-templates]. JBake also takes care of the styling of the resulting HTML documents with it's bundled copy of Bootstrap.
+I write the actual blog posts and other content in AsciiDoc format. These documents are then transformed by JBake using GSP page templates and Bootstrap stylesheets into HTML format. These HTML files are then published on my https://fvanwesterop.github.io/blog/[GitHub Pages] website. All this is orchestrated a Gradle build.
 
-The Groovy templates, authored AsciiDoc content and the sources and directory structure needed by JBake live in the `master` branch of the GitHub repo. The generated site gets published by a git push to the `gh-pages` branch. To accomplish this I use a Gradle build: The groovy-templates engine is provided to JBake by adding its dependency coordinates to the Gradle build file. For running JBake itself and publish it's output to the GitHub the following Gradle plugins are configured in the build:
+The Gradle https://github.com/fvanwesterop/blog/blob/master/build.gradle[build file] is the center piece controlling the whole process. It delegates to some helper build-files to keep things nice and uncomplected, to use a nice word revived by https://github.com/tallesl/Rich-Hickey-fanclub[Rich Hickey] the other day. There are some neat Gradle plugins helping me out here:
 
-* The https://github.com/jbake-org/jbake-gradle-plugin/[jbake-gradle-plugin] for running JBake.
-* The https://github.com/ajoberstar/gradle-git/[gradle-git] plugin for taking the output JBake and push it to the remote gh-pages branch.
+* https://github.com/jbake-org/jbake-gradle-plugin[JBake plugin] - Does the actual conversion from AsciiDoc to HTML and works with Gradle's continuous build mode.
+* https://github.com/aalmiray/livereload-gradle-plugin[LiveReload plugin] - Reloads the site-under-development continiously while authoring the AsciiDoc content.
+* https://github.com/ajoberstar/gradle-git[Gadle-git plugin] - Publishes the HTML site to my Github Pages.
 
-While writing content I preview my site using a groovy script that runs a Ratpack handler to serve-up the content. Intermediary 'bakes' of the site are imediately picked up by Ratpack. What is still missing though is an automated 'bake' when any of the source asciidoc files is saved to disk. I know of the https://github.com/bluepapa32/gradle-watch-plugin[gradle-watch-plugin] but could not get it to work yet in my current setup. That would solve this. Also a browser auto-refresh is on the wish-list.
+Feel free to re-use my setup to get your your site going if you'd like. After cloning the project simply type `./gradlew tasks` and read the information below the _Build Website tasks_ section. Then read the JBake documentation to customize stuff to your liking.
 
-There are helper scripts to perform the basic tasks, so the current way of working is:
-
-* Initially run `./serve-site`
-* Start webbrowser at `http://localhost:5050/`
-
-Then iterate over the following steps:
-
-* Write new or edit existing asciidoc content in `src/jbake/content`
-* run `./bake-site`
-
-When all is well publish the site on github and stop the local dev server:
-
-* run `./publish-site`
-* run `./stop-site`
-
-Maybe this info inspires you to start or migrate your own blog in this way. Enjoy!
+Ofcourse, you cannot use or re-publish my content files without my explicit permission: That's all copyrighted material and belongs to me. This applies to everything living below the `src`-folder. The rest is all copylefted and free to use for you.

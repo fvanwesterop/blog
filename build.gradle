@@ -1,15 +1,37 @@
-plugins {
-    id 'org.jbake.site' version '1.0.0'
-    id 'groovy'
+
+description = 'Build for fvanwesterop-blog site on Github Pages.'
+
+task cleanAll(type: GradleBuild) {
+    description 'Wipes all output directories (\'build\').'
+    group 'Build Web Site'
+    buildFile = 'develop.gradle'
+    tasks = ['clean']
 }
 
-jbake {
-    srcDirName = file '/src/jbake'
-    destDirName = file('/jbake')
-    groovyTemplatesVersion = '2.4.14'
+task buildDev(type: GradleBuild) {
+    description 'Builds the website during development iterations. Tip: run this task with the \'--continious\' flag to enable auto-rebuild.'
+    group 'Build Web Site'
+    buildFile = 'develop.gradle'
+    tasks = ['bake']
 }
 
-task publish(dependsOn: 'bake', type: GradleBuild) {
+task serveDev(type: GradleBuild) {
+    description 'Starts a live-reload development server on \'http://localhost:35729/\'.'
+    group 'Build Web Site'
+    buildFile = 'develop.gradle'
+    tasks = ['liveReload']
+}
+
+task buildProd(type: GradleBuild) {
+    description 'Builds the production site from scratch.'
+    group 'Build Web Site'
     buildFile = 'publish.gradle'
-    tasks = ['publishGhPages']
+    tasks = ['clean', 'bake']
+}
+
+task publishProd(type: GradleBuild) {
+    description 'Builds the site from scratch and publishes it on Github Pages.'
+    group 'Build Web Site'
+    buildFile = 'publish.gradle'
+    tasks = ['buildProductionSite', 'publishGhPages']
 }

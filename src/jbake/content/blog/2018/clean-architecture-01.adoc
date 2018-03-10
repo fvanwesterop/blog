@@ -1,18 +1,42 @@
-= Clean Architecture - SOLID Principes Post
+= Clean Architecture - the SOLID Principles
 Frank van Westerop
 2018-03-03
-:jbake-type: post
+:jbake-type: page
+:jbake-tags: architecture, solid, design
 :jbake-status: draft
-:jbake-tags: architecture solid
-:idprefix:
+:idprefix: id_
 
-== Ontro
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque vel diam purus. Curabitur ut nisi lacus.
+image::image/architecture.jpg[] 
 
-Nam id nisl quam. Donec a lorem sit amet libero pretium vulputate vel ut purus. Suspendisse leo arcu,
-mattis et imperdiet luctus, pulvinar vitae mi. Quisque fermentum sollicitudin feugiat. Mauris nec leo
-ligula. Vestibulum tristique odio ut risus ultricies a hendrerit quam iaculis. Duis tempor elit sit amet
-ligula vehicula et iaculis sem placerat. Fusce dictum, metus at volutpat lacinia, elit massa auctor risus,
-id auctor arcu enim eu augue. Donec ultrices turpis in mi imperdiet ac venenatis sapien sodales. In
-consequat imperdiet nunc quis bibendum. Nulla semper, erat quis ornare tristique, lectus massa posuere
-libero, ut vehicula lectus nunc ut lorem. Aliquam erat volutpat.
+[.lead]
+_Recently I bought a copy of Robert Martin's excelent book 'Clean Architecture' which I'm reading with pleasure. Since I'm mainly developing software in Java, using the object oriented paradigm (OOD), this book totally applies to the stuff I do at work. Since it helps me as a writer to digest this material a little better, and you as a reader to get the gist of what Uncle Bob is talking about, I decided to dedicate a few posts on a numer of topics in the book. This post will be all about the SOLID principles._
+
+:toc:
+
+
+== Rock Solid
+
+The SOLID priniples have been around for a while, but usually they are applied at the _module_-level of object oriented software, so in the context of writing classes and methods. But at a higher level they also apply at the _component_-level, so in the context of modules or libraries: think `.dll` and `.jar` files here.
+At that level of granularity the programming paradigm (imperative versus declaritive, e.g. an object oriented versus a functional programming style) should no longer matter and thus SOLID also makes sense when cramming together your F# DLL's or your Clojure JAR's into that awesome application of yours.
+
+At both granularity levels though SOLID is all about writing maintainable code. This may come at the cost of some added complexity though. Some thinking upfront has to be done and will be needed each time you iterate back over your design, which is neeede as well: Keep iterating! Since you will not get it right the first time. The good news is however, that applying SOLID principles will keeping your software ...well... soft! It will prevent you from turning your stuff in that mythical https://en.wikipedia.org/wiki/Big_ball_of_mud[ball of mudd]
+
+So in general you will spend extra mental energy on your code over time. Wheter or not that's worth it, depends on the required maintainability of your software over time. There is a trade-off to be made there: If you mainly are involved in writing one-off throw-away marketing-campaign-style-stuff for instance, the fuzz may not be worth it for you. But most of us are writing software that actually does need to survive at least a number of development cycles and propably does have a lifespan of, say, a year or more. In the general case it is a good idea on keeping an eye on SOLID and at least assess wheter or not you are applying them and make that trade off conciously between spended effort to keep things crisp and clear or going a bit faster right now but knowingly polute your code base over time which will slow you down in the long run.
+
+At this level, the SOLID principles give guidance on how to design code at this granularity level for good maintainability. These principles are:
+
+* SRP - Single Responsbility Principle
+* OCP - Open-Closed Principle
+* LSP - Liskof Substitution Pinciple
+* ISP - Interface Segregation Principle
+* DIP - Dependency Inversion Principle
+
+I'll discuss these principles below.
+
+== Single Resonsibility Principle
+
+The Single Responsibility Principle or SRP, mandates that a module, function or method should perform just a single task. The main idea around this is that this will cause the module, function or method to have just a single reason to change. 
+
+== Open-Closed Principle
+
+The Open-Closed Princliple or OCP, states that a module should be open for extension but closed for modification. Typically this is achieved by 

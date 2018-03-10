@@ -1,8 +1,8 @@
-= Second Post
+= Post Title
 Frank van Westerop
 2017-12-31
 :jbake-type: post
-:jbake-status: 2017-12-31
+:jbake-status: draft
 :jbake-tags:
 :idprefix:
 

@@ -1,0 +1,19 @@
+plugins {
+	id 'groovy'
+    id 'org.jbake.site' version '1.1.1'
+    id "org.kordamp.gradle.livereload" version "0.2.1"
+}
+
+jbake {
+    version  = '2.6.0'
+    asciidoctorjVersion = '1.5.6'
+    groovyTemplatesVersion = '2.4.14'
+
+    configuration['site.host'] = 'http://localhost:35729/'
+    srcDirName = file '/src/jbake'
+    destDirName = file('/development')
+}
+
+liveReload {
+	docRoot = 'build/development'
+}

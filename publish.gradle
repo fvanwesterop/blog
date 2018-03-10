@@ -1,16 +1,23 @@
 plugins {
-  id 'org.ajoberstar.github-pages' version '1.7.2'
+	id 'groovy'
+	id 'org.jbake.site' version '1.1.1'
+	id 'org.ajoberstar.github-pages' version '1.7.2'
+}
+
+jbake {
+    version  = '2.6.0'
+    asciidoctorjVersion = '1.5.6'
+    groovyTemplatesVersion = '2.4.14'
+    
+    srcDirName = file '/src/jbake'
+    destDirName = file('/production')
 }
 
 githubPages {
-
-  repoUri = 'git@github.com:fvanwesterop/blog.git'
-  targetBranch = 'gh-pages'
-
-  pages {
-    from(file('build/jbake')) {
-      into '.'
-    }
-  }
+	repoUri = 'git@github.com:fvanwesterop/blog.git'
+	targetBranch = 'gh-pages'
+	pages {
+		from(file('build/production')) { into '.' }
+	}
   
 }
